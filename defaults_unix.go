@@ -1,4 +1,4 @@
-//go:build unix && !(darwin || ios)
+//go:build unix && !darwin
 
 package xdg
 
