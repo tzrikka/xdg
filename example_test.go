@@ -16,10 +16,16 @@ func ExampleConfigHome() {
 	}
 
 	appDir := filepath.Join(rootDir, "my_app")
-	os.MkdirAll(appDir, 0o700)
+	if err := os.MkdirAll(appDir, 0o700); err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	cfgFile := filepath.Join(appDir, "config.yaml")
-	os.WriteFile(cfgFile, []byte("#\n"), 0o600)
+	if err := os.WriteFile(cfgFile, []byte("#\n"), 0o600); err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func ExampleMustHome() {
