@@ -1,0 +1,64 @@
+version: "2"
+
+linters:
+  enable:
+    - bodyclose
+    - canonicalheader
+    - containedctx
+    - copyloopvar
+    - dupword
+    - errchkjson
+    - errname
+    - errorlint
+    - exptostd
+    - fatcontext
+    - gocheckcompilerdirectives
+    - gocritic
+    - godot
+    - godox
+    - gosec
+    - gosmopolitan
+    - intrange
+    - misspell
+    - musttag
+    - noctx
+    - nosprintfhostport
+    - perfsprint
+    - predeclared
+    # - promlinter
+    # - protogetter
+    - recvcheck
+    # - revive
+    # - spancheck
+    # - testifylint
+    - unconvert
+    - usestdlibvars
+    # - zerologlint
+  
+  settings:
+    godot:
+      scope: all
+    misspell:
+      locale: US
+    predeclared:
+      qualified-name: true
+
+formatters:
+  enable:
+    - gci
+    - gofumpt
+    - golines
+
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+
+    gofumpt:
+      extra-rules: true
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  fix: true
