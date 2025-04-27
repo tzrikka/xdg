@@ -33,7 +33,6 @@ func CacheHome() (string, error) {
 //
 // Subtly different from [os.UserConfigDir] in the following ways:
 //   - XDG_CONFIG_HOME honored in all operating systems,
-//   - Windows: use %LocalAppData% instead of %AppData%,
 //   - Nested environment variables are auto-expanded,
 //   - Environment variables may end with a trailing slash.
 func ConfigHome() (string, error) {

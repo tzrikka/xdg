@@ -3,7 +3,6 @@ package xdg
 import (
 	"os"
 	"path/filepath"
-	"strings"
 
 	"golang.org/x/sys/windows"
 )
@@ -13,14 +12,11 @@ func defaultCacheHome() string {
 }
 
 func defaultConfigHome() string {
-	return localAppData()
+	return roamingAppData()
 }
 
 func defaultConfigDirs() string {
-	return strings.Join([]string{
-		programData(),
-		roamingAppData(),
-	}, listSeparator)
+	return programData()
 }
 
 func defaultDataHome() string {
@@ -28,10 +24,7 @@ func defaultDataHome() string {
 }
 
 func defaultDataDirs() string {
-	return strings.Join([]string{
-		roamingAppData(),
-		programData(),
-	}, listSeparator)
+	return programData()
 }
 
 func defaultStateHome() string {
