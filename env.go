@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
+	"runtime"
 	"strings"
 )
 
@@ -77,7 +79,7 @@ func StateHome() (string, error) {
 }
 
 func dir(envVarName string, defaultFunc func() string) (string, error) {
-	path := os.ExpandEnv(os.Getenv(envVarName))
+	path := expand(os.Getenv(envVarName))
 	if path == "" {
 		path = defaultFunc()
 	}
@@ -90,7 +92,7 @@ func dir(envVarName string, defaultFunc func() string) (string, error) {
 }
 
 func dirs(envVarName string, defaultFunc func() string) ([]string, error) {
-	path := os.ExpandEnv(os.Getenv(envVarName))
+	path := os.Getenv(envVarName)
 	if path == "" {
 		path = defaultFunc()
 	}
@@ -98,11 +100,30 @@ func dirs(envVarName string, defaultFunc func() string) ([]string, error) {
 	var paths []string
 	for p := range strings.SplitSeq(path, listSeparator) {
 		if absDirExists(p) {
-			paths = append(paths, p)
+			paths = append(paths, expand(p))
 		}
 	}
 
 	return paths, nil
+}
+
+// expand expands environment variables in the given path
+// ("$var" and "${var}" in Unix-like operating systems, and
+// "%var%" in Windows), and "~" in Unix-like operating systems.
+// References to undefined variables are replaced by the empty string.
+func expand(path string) string {
+	switch runtime.GOOS {
+	case "windows":
+		// [os.ExpandEnv] doesn't support %var%, only ${var}.
+		path = regexp.MustCompile(`%(\w+?)%`).ReplaceAllString(path, "${$1}")
+	default:
+		// [os.ExpandEnv] doesn't support "~".
+		if len(path) > 0 && path[0] == '~' {
+			path = strings.Replace(path, "~", "${HOME}", 1)
+		}
+	}
+
+	return os.ExpandEnv(path)
 }
 
 // absDirExists checks whether the given path is an existing absolute directory.
