@@ -1,7 +1,7 @@
 // Package xdg implements the [XDG Base Directory Specification],
 // with adjustments for [macOS] and [Windows].
 //
-// Supported operating systems: all Unix flavors, macOS, Windows.
+// Supported operating systems: all Unix flavors, macOS, and Windows.
 //
 // It was created with these design goals/principles:
 //   - Code and usage simplicity
