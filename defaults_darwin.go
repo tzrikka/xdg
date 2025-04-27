@@ -15,9 +15,7 @@ func defaultConfigHome() string {
 
 func defaultConfigDirs() string {
 	return strings.Join([]string{
-		filepath.Join(HomeDir(), "Library/Preferences"),
 		"/Library/Application Support",
-		"/Library/Preferences",
 		filepath.Join(HomeDir(), ".config"),
 		"/etc/xdg",
 	}, listSeparator)
@@ -31,8 +29,7 @@ func defaultDataDirs() string {
 	return strings.Join([]string{
 		"/Library/Application Support",
 		filepath.Join(HomeDir(), ".local/share"),
-		"/usr/local/share",
-		"/usr/share",
+		"/usr/local/share:/usr/share",
 	}, listSeparator)
 }
 
