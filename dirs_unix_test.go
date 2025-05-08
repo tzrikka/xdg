@@ -14,7 +14,7 @@ func TestExpandUnix(t *testing.T) {
 		{
 			name: "empty",
 			path: "",
-			want: "",
+			want: ".",
 		},
 		{
 			name: "minimum",
