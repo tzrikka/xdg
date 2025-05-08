@@ -111,6 +111,7 @@ func dirs(envVarName string, defaultFunc func() string) ([]string, error) {
 // ("$var" and "${var}" in Unix-like operating systems, and
 // "%var%" in Windows), and "~" in Unix-like operating systems.
 // References to undefined variables are replaced by the empty string.
+// This function also calls [filepath.Clean] to clean the path.
 func expand(path string) string {
 	switch runtime.GOOS {
 	case "windows":
@@ -123,7 +124,7 @@ func expand(path string) string {
 		}
 	}
 
-	return os.ExpandEnv(path)
+	return filepath.Clean(os.ExpandEnv(path))
 }
 
 // absDirExists checks whether the given path is an existing absolute directory.
