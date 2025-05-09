@@ -113,6 +113,10 @@ func dirs(envVarName string, defaultFunc func() string) ([]string, error) {
 // References to undefined variables are replaced by the empty string.
 // This function also calls [filepath.Clean] to clean the path.
 func expand(path string) string {
+	if path == "" {
+		return path
+	}
+
 	switch runtime.GOOS {
 	case "windows":
 		// [os.ExpandEnv] doesn't support %var%, only ${var}.
