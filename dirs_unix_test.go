@@ -14,6 +14,11 @@ func TestExpandUnix(t *testing.T) {
 		{
 			name: "empty",
 			path: "",
+			want: "",
+		},
+		{
+			name: "local",
+			path: ".",
 			want: ".",
 		},
 		{
