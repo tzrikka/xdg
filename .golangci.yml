@@ -25,15 +25,11 @@ linters:
     - nosprintfhostport
     - perfsprint
     - predeclared
-    # - promlinter
-    # - protogetter
     - recvcheck
     # - revive
     # - spancheck
-    # - testifylint
     - unconvert
     - usestdlibvars
-    - zerologlint
   exclusions:
     rules:
       - linters:
