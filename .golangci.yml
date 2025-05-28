@@ -2,12 +2,9 @@ version: "2"
 
 linters:
   enable:
-    - bodyclose
-    - canonicalheader
     - containedctx
     - copyloopvar
     - dupword
-    - errchkjson
     - errname
     - errorlint
     - exptostd
@@ -21,20 +18,12 @@ linters:
     - intrange
     - misspell
     - musttag
-    - noctx
-    - nosprintfhostport
     - perfsprint
     - predeclared
     - recvcheck
-    # - revive
-    # - spancheck
+    - revive
     - unconvert
     - usestdlibvars
-  exclusions:
-    rules:
-      - linters:
-          - errcheck
-        source: "defer .*Close()"
 
   settings:
     godot:
@@ -59,8 +48,6 @@ formatters:
         - prefix(github.com/tzrikka)
     gofumpt:
       extra-rules: true
-    golines:
-      max-len: 150
 
 issues:
   max-issues-per-linter: 0
