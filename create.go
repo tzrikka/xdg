@@ -48,17 +48,17 @@ func CreateDir(dirType func() (string, error), appName string) (string, error) {
 // Attention: this function normalizes the app and file names and ensures they
 // do not contain path elements, but the caller is responsible for input vetting.
 func CreateFile(dirType func() (string, error), appName, fileName string) (string, error) {
-	path, err := CreateDir(dirType, appName)
-	if err != nil {
-		return "", err
-	}
-
 	fileName = filepath.Clean(fileName)
 	if fileName == "." {
 		return "", errors.New("file name is empty")
 	}
 	if strings.Contains(fileName, pathSep) {
 		return "", errors.New("file name must not contain separator")
+	}
+
+	path, err := CreateDir(dirType, appName)
+	if err != nil {
+		return "", err
 	}
 
 	path = filepath.Join(path, fileName)
