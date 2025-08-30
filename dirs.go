@@ -36,7 +36,8 @@ func CacheHome() (string, error) {
 // Subtly different from [os.UserConfigDir] in the following ways:
 //   - XDG_CONFIG_HOME honored in all operating systems,
 //   - Nested environment variables are auto-expanded,
-//   - Environment variables may end with a trailing slash.
+//   - Environment variables may end with a trailing slash,
+//   - Different (easier and isolated) default value in macOS.
 func ConfigHome() (string, error) {
 	return dir("XDG_CONFIG_HOME", defaultConfigHome)
 }
@@ -69,11 +70,11 @@ func DataDirs() ([]string, error) {
 // subdirectory within this one and use that.
 //
 // State data should persist between (application) restarts,
-// but that is not important or portable enough to the user
-// that it should be stored in [DataHome]. It may contain:
+// but is not important or portable enough to the user that
+// it should be stored in [DataHome]. It may contain:
 //   - Actions history (logs, history, recently used files, ...),
-//   - Current state of the application that can be reused on a restart
-//     (view, layout, open files, undo history, ...).
+//   - Current state of the application that can be reused on a
+//     restart (view, layout, open files, undo history, ...).
 func StateHome() (string, error) {
 	return dir("XDG_STATE_HOME", defaultStateHome)
 }

@@ -20,7 +20,7 @@ const (
 // CreateDir returns the path to the given app's directory, under the
 // given XDG base directory, and creates it if it doesn't already exist.
 // Attention: this function normalizes the app name and ensures it does
-// not contain path elements, but the caller is responsible input vetting.
+// not contain path elements, but the caller is responsible for input vetting.
 func CreateDir(dirType func() (string, error), appName string) (string, error) {
 	appName = filepath.Clean(appName)
 	if appName == "." {

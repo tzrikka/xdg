@@ -10,13 +10,13 @@ func defaultCacheHome() string {
 }
 
 func defaultConfigHome() string {
-	return filepath.Join(HomeDir(), "Library/Application Support")
+	return filepath.Join(HomeDir(), ".config")
 }
 
 func defaultConfigDirs() string {
 	return strings.Join([]string{
+		filepath.Join(HomeDir(), "Library/Application Support"),
 		"/Library/Application Support",
-		filepath.Join(HomeDir(), ".config"),
 		"/etc/xdg",
 	}, listSeparator)
 }
