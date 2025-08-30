@@ -48,6 +48,8 @@ formatters:
         - prefix(github.com/tzrikka)
     gofumpt:
       extra-rules: true
+    golines:
+      max-len: 120
 
 issues:
   max-issues-per-linter: 0
