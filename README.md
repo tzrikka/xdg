@@ -21,100 +21,34 @@ go get github.com/tzrikka/xdg
 
 ## Default Paths
 
-### All Unix Flavors
+### Unix & macOS
 
-`XDG_CACHE_HOME`
-
-| Operating System | Path                   |
-| :--------------- | :--------------------- |
-| Unix             | `$HOME/.cache`         |
-| macOS            | `$HOME/Library/Caches` |
-
-`XDG_CONFIG_HOME`
-
-| Operating System | Path                                |
-| :--------------- | :---------------------------------- |
-| Unix             | `$HOME/.config`                     |
-| macOS            | `$HOME/Library/Application Support` |
-
-`XDG_CONFIG_DIRS`
-
-| Operating System | Path(s)                        |
-| :--------------- | :----------------------------- |
-| Unix             | `/etc/xdg`                     |
-| macOS            | `/Library/Application Support` |
-|                  | `$HOME/.config`                |
-|                  | `/etc/xdg`                     |
-
-`XDG_DATA_HOME`
-
-| Operating System | Path                                |
-| :--------------- | :---------------------------------- |
-| Unix             | `$HOME/.local/share`                |
-| macOS            | `$HOME/Library/Application Support` |
-
-`XDG_DATA_DIRS`
-
-| Operating System | Path(s)                        |
-| :--------------- | :----------------------------- |
-| Unix             | `/usr/local/share`             |
-|                  | `/usr/share`                   |
-| macOS            | `/Library/Application Support` |
-|                  | `$HOME/.local/share`           |
-|                  | `/usr/local/share`             |
-|                  | `/usr/share`                   |
-
-`XDG_STATE_HOME`
-
-| Operating System | Path                                |
-| :--------------- | :---------------------------------- |
-| Unix             | `$HOME/.local/state`                |
-| macOS            | `$HOME/Library/Application Support` |
+| Env Var           | Unix                 | macOS                               |
+| :---------------- | :------------------- | :---------------------------------- |
+| `XDG_CACHE_HOME`  | `$HOME/.cache`       | `$HOME/Library/Caches`              |
+| `XDG_CONFIG_HOME` | `$HOME/.config`      | `$HOME/.config`                     |
+| `XDG_CONFIG_DIRS` | `/etc/xdg`           | `$HOME/Library/Application Support` |
+|                   |                      | `/Library/Application Support`      |
+|                   |                      | `/etc/xdg`                          |
+| `XDG_DATA_HOME`   | `$HOME/.local/share` | `$HOME/Library/Application Support` |
+| `XDG_DATA_DIRS`   | `/usr/local/share`   | `/Library/Application Support`      |
+|                   | `/usr/share`         | `$HOME/.local/share`                |
+|                   |                      | `/usr/local/share`                  |
+|                   |                      | `/usr/share`                        |
+| `XDG_STATE_HOME`  | `$HOME/.local/state` | `$HOME/Library/Application Support` |
 
 ### Microsoft Windows
 
-[Known folder IDs](https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid)
+| XDG Env Var       | Known Folder              | Windows Env Var     |
+| :---------------- | :------------------------ | :------------------ |
+| `XDG_CACHE_HOME`  | `FOLDERID_LocalAppData`   | `%LOCALAPPDATA%`    |
+| `XDG_CONFIG_HOME` | `FOLDERID_RoamingAppData` | `%APPDATA%`         |
+| `XDG_CONFIG_DIRS` | `FOLDERID_ProgramData`    | `%ALLUSERSPROFILE%` |
+|                   |                           | or `%ProgramData%`  |
+| `XDG_DATA_HOME`   | `FOLDERID_LocalAppData`   | `%LOCALAPPDATA%`    |
+| `XDG_DATA_DIRS`   | `FOLDERID_ProgramData`    | `%ALLUSERSPROFILE%` |
+|                   |                           | or `%ProgramData%`  |
+| `XDG_STATE_HOME`  | `FOLDERID_LocalAppData`   | `%LOCALAPPDATA%`    |
 
-[Recognized environment variables](https://learn.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables)
-
-`XDG_CACHE_HOME`
-
-| Type         | Value                   |
-| :----------- | :---------------------- |
-| Known Folder | `FOLDERID_LocalAppData` |
-| Env Var      | `%LOCALAPPDATA%`        |
-
-`XDG_CONFIG_HOME`
-
-| Type         | Value                     |
-| :----------- | :------------------------ |
-| Known Folder | `FOLDERID_RoamingAppData` |
-| Env Var      | `%APPDATA%`               |
-
-`XDG_CONFIG_DIRS`
-
-| Type         | Value                                  |
-| :----------- | :------------------------------------- |
-| Known Folder | `FOLDERID_ProgramData`                 |
-| Env Var      | `%ALLUSERSPROFILE%` or `%ProgramData%` |
-
-`XDG_DATA_HOME`
-
-| Type         | Value                   |
-| :----------- | :---------------------- |
-| Known Folder | `FOLDERID_LocalAppData` |
-| Env Var      | `%LOCALAPPDATA%`        |
-
-`XDG_DATA_DIRS`
-
-| Type         | Value                                  |
-| :----------- | :------------------------------------- |
-| Known Folder | `FOLDERID_ProgramData`                 |
-| Env Var      | `%ALLUSERSPROFILE%` or `%ProgramData%` |
-
-`XDG_STATE_HOME`
-
-| Type         | Value                   |
-| :----------- | :---------------------- |
-| Known Folder | `FOLDERID_LocalAppData` |
-| Env Var      | `%LOCALAPPDATA%`        |
+- [Known folder IDs](https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid)
+- [Recognized environment variables](https://learn.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables)
