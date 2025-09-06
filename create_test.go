@@ -118,6 +118,8 @@ func TestCreateFile(t *testing.T) {
 }
 
 func tempDir(t *testing.T) func() (string, error) {
+	t.Helper()
+
 	return func() (string, error) {
 		return t.TempDir(), nil
 	}

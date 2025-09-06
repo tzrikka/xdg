@@ -2,9 +2,18 @@ version: "2"
 
 linters:
   enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - canonicalheader
     - containedctx
+    - contextcheck
     - copyloopvar
+    - dupl
     - dupword
+    - embeddedstructfieldcheck
+    - errcheck
+    - errchkjson
     - errname
     - errorlint
     - exptostd
@@ -15,15 +24,25 @@ linters:
     - godox
     - gosec
     - gosmopolitan
+    - govet
+    - ineffassign
     - intrange
+    - mirror
     - misspell
     - musttag
+    - noctx
+    - nosprintfhostport
     - perfsprint
     - predeclared
     - recvcheck
     - revive
+    - staticcheck
+    - thelper
     - unconvert
+    - unused
     - usestdlibvars
+    - usetesting
+    - zerologlint
 
   settings:
     godot:
