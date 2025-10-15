@@ -1,5 +1,5 @@
 module github.com/tzrikka/xdg
 
-go 1.25.2
+go 1.25.3
 
 require golang.org/x/sys v0.37.0
