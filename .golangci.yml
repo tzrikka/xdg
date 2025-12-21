@@ -4,34 +4,28 @@ linters:
   enable:
     - asciicheck
     - bidichk
-    - bodyclose
-    - canonicalheader
-    - containedctx
-    - contextcheck
     - copyloopvar
     - dupl
     - dupword
-    - embeddedstructfieldcheck
     - errcheck
-    - errchkjson
     - errname
     - errorlint
     - exptostd
-    - fatcontext
     - gocheckcompilerdirectives
     - gocritic
+    - godoclint
     - godot
     - godox
     - gosec
     - gosmopolitan
     - govet
+    - iface
     - ineffassign
     - intrange
     - mirror
     - misspell
+    - modernize
     - musttag
-    - noctx
-    - nosprintfhostport
     - perfsprint
     - predeclared
     - recvcheck
@@ -42,12 +36,18 @@ linters:
     - unused
     - usestdlibvars
     - usetesting
-    - zerologlint
 
   settings:
+    errcheck:
+      check-type-assertions: true
     godot:
       scope: all
       capital: true
+    iface:
+      enable:
+        - identical
+        - unused
+        - unexported
     misspell:
       locale: US
     predeclared:
