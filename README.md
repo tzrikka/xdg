@@ -1,6 +1,7 @@
 # Cross-Platform XDG Base Directories
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/tzrikka/xdg.svg)](https://pkg.go.dev/github.com/tzrikka/xdg)
+[![Code Wiki](https://img.shields.io/badge/Code_Wiki-gold?logo=googlegemini)](https://codewiki.google/github.com/tzrikka/xdg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tzrikka/xdg)](https://goreportcard.com/report/github.com/tzrikka/xdg)
 
 This package implements the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/latest/), with adjustments for [macOS](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/MacOSXDirectories/MacOSXDirectories.html#//apple_ref/doc/uid/TP40010672-CH10-SW1) and [Windows](http://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid).
