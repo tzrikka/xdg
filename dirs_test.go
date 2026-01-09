@@ -11,7 +11,7 @@ func TestAbsDirExists(t *testing.T) {
 	if err := os.Mkdir(filepath.Join(root, "dir1"), 0o750); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(root, "file1"), nil, 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "file1"), nil, NewFilePermissions); err != nil {
 		t.Fatal(err)
 	}
 

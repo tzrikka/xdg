@@ -62,13 +62,6 @@ func TestFindFile(t *testing.T) {
 			wantErr:  true,
 		},
 		{
-			name:     "bad_file_name",
-			home:     dirForTest(homeDir, nil),
-			dirs:     dirsForTest([]string{dirsDir}, nil),
-			fileName: "file/name",
-			wantErr:  true,
-		},
-		{
 			name:     "home_dir_error",
 			home:     dirForTest(homeDir, fmt.Errorf("home dir error")),
 			dirs:     dirsForTest([]string{dirsDir}, nil),
@@ -116,34 +109,58 @@ func dirsForTest(dirs []string, err error) func() ([]string, error) {
 	}
 }
 
-func TestFileExists(t *testing.T) {
-	tempDir := t.TempDir()
-	path := filepath.Join(tempDir, "test_file")
-
-	if err := os.WriteFile(path, []byte("test"), 0o600); err != nil {
-		t.Fatalf("failed to write test file: %v", err)
-	}
+func TestFullPath(t *testing.T) {
+	appName := "my_app"
+	baseFile := "test_file"
 
 	tests := []struct {
-		name string
-		path string
-		want bool
+		name       string
+		subdir     string
+		fileSuffix string
 	}{
 		{
-			name: "file_exists",
-			path: path,
-			want: true,
+			name: "shallow_file_exists",
 		},
 		{
-			name: "file_does_not_exist",
-			path: path + "bad",
+			name:       "shallow_file_does_not_exist",
+			fileSuffix: "bad",
+		},
+		{
+			name:   "deep_file_exists",
+			subdir: "subdir1/subdir2",
+		},
+		{
+			name:       "deep_file_does_not_exist",
+			subdir:     "subdir",
+			fileSuffix: "bad",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := fileExists(tt.path); got != tt.want {
-				t.Errorf("fileExists() = %v, want %v", got, tt.want)
+			tempDir := t.TempDir()
+
+			path := filepath.Join(tempDir, appName, tt.subdir)
+			if err := os.MkdirAll(path, NewDirectoryPermissions); err != nil {
+				t.Fatalf("failed to create test subdir: %v", err)
+			}
+
+			path = filepath.Join(path, baseFile)
+			if err := os.WriteFile(path, []byte("test"), NewFilePermissions); err != nil {
+				t.Fatalf("failed to write test file: %v", err)
+			}
+
+			got, err := fullPath(tempDir, appName, filepath.Join(tt.subdir, baseFile+tt.fileSuffix))
+			if err != nil {
+				t.Errorf("fullPath() error = %v", err)
+				return
+			}
+
+			if tt.fileSuffix != "" {
+				path = ""
+			}
+			if got != path {
+				t.Errorf("fullPath() = %q, want %q", got, path)
 			}
 		})
 	}

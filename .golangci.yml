@@ -37,6 +37,12 @@ linters:
     - usestdlibvars
     - usetesting
 
+  exclusions:
+    rules:
+      - linters:
+          - errcheck
+        source: "defer .*Close()"
+
   settings:
     errcheck:
       check-type-assertions: true
