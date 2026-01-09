@@ -322,6 +322,12 @@ func TestCreateFilePath(t *testing.T) {
 			filePath: "/my_file",
 			wantErr:  true,
 		},
+		{
+			name:     "trailing_slash_file_path",
+			appName:  "my_app",
+			filePath: "subdir/",
+			wantErr:  true,
+		},
 	}
 
 	for _, tt := range tests {

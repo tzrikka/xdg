@@ -79,7 +79,7 @@ func CreateSubdir(dirType func() (string, error), appName, subpath string) (stri
 // CreateFile returns the path to the given app's file under the given XDG base directory.
 // It creates the file and any parent directories if they don't exist yet.
 //
-// Note 1: this function normalizes the app and file names and ensures they
+// Note: this function normalizes the app and file names and ensures they
 // don't contain path elements, but the caller is responsible for input vetting.
 func CreateFile(dirType func() (string, error), appName, fileName string) (string, error) {
 	fileName = filepath.Clean(fileName)
@@ -108,12 +108,16 @@ func CreateFile(dirType func() (string, error), appName, fileName string) (strin
 // under the given XDG base directory. It creates the file and any parent directories
 // if they don't exist yet.
 //
-// Note 1: this function normalizes the app and file names and ensures they
-// don't contain path elements, but the caller is responsible for input vetting.
+// Note 1: this function normalizes the app name and ensures it doesn't
+// contain path elements, but the caller is responsible for input vetting.
 //
 // Note 2: the filePath parameter must contain at least a filename, and may contain a prefix of
 // 0 or more path elements. This function ensures that it does not escape the app's directory.
 func CreateFilePath(dirType func() (string, error), appName, filePath string) (string, error) {
+	if _, file := filepath.Split(filePath); file == "" {
+		return "", fmt.Errorf("file path must end with a file name")
+	}
+
 	filePath = filepath.Clean(filePath)
 	if filePath == "." {
 		return "", fmt.Errorf("file path is empty")

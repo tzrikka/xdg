@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// FindCacheFile looks for a filename in an app's [CacheHome] directory.
+// FindCacheFile looks for a file in an app's [CacheHome] directory.
 // If the file is found, this function returns its full path. If not,
 // it returns an empty string but no error. An error is returned only
 // if the input parameters are invalid, or in case of a runtime error.
@@ -16,7 +16,7 @@ func FindCacheFile(appName, filePath string) (string, error) {
 	return findFile(CacheHome, nil, appName, filePath)
 }
 
-// FindConfigFile looks for a filename in an app's [ConfigHome] and [ConfigDirs]
+// FindConfigFile looks for a file in an app's [ConfigHome] and [ConfigDirs]
 // directories. If the file is found, this function returns its full path.
 // If not, it returns an empty string but no error. An error is returned
 // only if the input parameters are invalid, or in case of a runtime error.
@@ -24,7 +24,7 @@ func FindConfigFile(appName, filePath string) (string, error) {
 	return findFile(ConfigHome, ConfigDirs, appName, filePath)
 }
 
-// FindDataFile looks for a filename in an app's [DataHome] and [DataDirs]
+// FindDataFile looks for a file in an app's [DataHome] and [DataDirs]
 // directories. If the file is found, this function returns its full path.
 // If not, it returns an empty string but no error. An error is returned
 // only if the input parameters are invalid, or in case of a runtime error.
@@ -32,7 +32,7 @@ func FindDataFile(appName, filePath string) (string, error) {
 	return findFile(DataHome, DataDirs, appName, filePath)
 }
 
-// FindStateFile looks for a filename in an app's [StateHome] directory.
+// FindStateFile looks for a file in an app's [StateHome] directory.
 // If the file is found, this function returns its full path. If not,
 // it returns an empty string but no error. An error is returned only
 // if the input parameters are invalid, or in case of a runtime error.
