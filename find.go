@@ -1,7 +1,7 @@
 package xdg
 
 import (
-	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -42,18 +42,18 @@ func FindStateFile(appName, fileName string) (string, error) {
 func findFile(home func() (string, error), dirs func() ([]string, error), appName, fileName string) (string, error) {
 	appName = filepath.Clean(appName)
 	if appName == "." {
-		return "", errors.New("app name is empty")
+		return "", fmt.Errorf("app name is empty")
 	}
 	if strings.Contains(appName, pathSep) {
-		return "", errors.New("app name must not contain separator")
+		return "", fmt.Errorf("app name must not contain separator")
 	}
 
 	fileName = filepath.Clean(fileName)
 	if fileName == "." {
-		return "", errors.New("file name is empty")
+		return "", fmt.Errorf("file name is empty")
 	}
 	if strings.Contains(fileName, pathSep) {
-		return "", errors.New("file name must not contain separator")
+		return "", fmt.Errorf("file name must not contain separator")
 	}
 
 	firstPath, err := home()
