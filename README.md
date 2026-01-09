@@ -20,6 +20,14 @@ It was created with these design goals/principles:
 go get github.com/tzrikka/xdg
 ```
 
+## Usage
+
+Functions: <https://pkg.go.dev/github.com/tzrikka/xdg#pkg-functions>
+
+Examples: <https://pkg.go.dev/github.com/tzrikka/xdg#pkg-examples>
+
+Constants: <https://pkg.go.dev/github.com/tzrikka/xdg#pkg-constants>
+
 ## Default Paths
 
 ### Unix & macOS

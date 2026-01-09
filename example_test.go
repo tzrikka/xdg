@@ -51,6 +51,25 @@ func ExampleCreateDir() {
 	fmt.Printf("My app's data dir: %s\n", dataPath)
 }
 
+func ExampleCreateSubdir() {
+	// Note: xdg.CreateSubdir(..., "my_app", "") is equivalent to xdg.CreateDir(..., "my_app").
+
+	cfgPath, err := xdg.CreateSubdir(xdg.ConfigHome, "my_app", "under_my_app")
+	if err != nil {
+		fmt.Println(err) // Input or runtime error.
+		return
+	}
+
+	dataPath, err := xdg.CreateSubdir(xdg.DataHome, "my_app", "under_my_app/under_subdir")
+	if err != nil {
+		fmt.Println(err) // Input or runtime error.
+		return
+	}
+
+	fmt.Printf("Subdirectory under my app's config dir: %s\n", cfgPath)
+	fmt.Printf("Subdirectory under my app's data dir: %s\n", dataPath)
+}
+
 func ExampleCreateFile() {
 	cfgPath, err := xdg.CreateFile(xdg.ConfigHome, "my_app", "config_file")
 	if err != nil {
@@ -59,6 +78,26 @@ func ExampleCreateFile() {
 	}
 
 	dataPath, err := xdg.CreateFile(xdg.DataHome, "my_app", "data_file")
+	if err != nil {
+		fmt.Println(err) // Input or runtime error.
+		return
+	}
+
+	fmt.Printf("My app's existing/new config file path: %s\n", cfgPath)
+	fmt.Printf("My app's existing/new data file path: %s\n", dataPath)
+}
+
+func ExampleCreateFilePath() {
+	// Note: xdg.CreateFilePath(..., "my_app", "file_without_directory_prefix") is
+	// equivalent to xdg.CreateFile(..., "my_app", "file_without_directory_prefix").
+
+	cfgPath, err := xdg.CreateFilePath(xdg.ConfigHome, "my_app", "under_my_app/config_file")
+	if err != nil {
+		fmt.Println(err) // Input or runtime error.
+		return
+	}
+
+	dataPath, err := xdg.CreateFilePath(xdg.DataHome, "my_app", "under_my_app/under_subdir/data_file")
 	if err != nil {
 		fmt.Println(err) // Input or runtime error.
 		return
@@ -84,7 +123,7 @@ func ExampleFindConfigFile() {
 }
 
 func ExampleFindDataFile() {
-	path, err := xdg.FindDataFile("my_app", "data_file")
+	path, err := xdg.FindDataFile("my_app", "subdir/data_file")
 	if err != nil {
 		fmt.Println(err) // Input or runtime error.
 		return
