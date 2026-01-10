@@ -1,7 +1,7 @@
 package xdg
 
 import (
-	"fmt"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -63,7 +63,7 @@ func TestFindFile(t *testing.T) {
 		},
 		{
 			name:     "home_dir_error",
-			home:     dirForTest(homeDir, fmt.Errorf("home dir error")),
+			home:     dirForTest(homeDir, errors.New("home dir error")),
 			dirs:     dirsForTest([]string{dirsDir}, nil),
 			fileName: "homeFile",
 			wantErr:  true,
@@ -71,7 +71,7 @@ func TestFindFile(t *testing.T) {
 		{
 			name:     "dirs_error",
 			home:     dirForTest(homeDir, nil),
-			dirs:     dirsForTest([]string{dirsDir}, fmt.Errorf("dirs error")),
+			dirs:     dirsForTest([]string{dirsDir}, errors.New("dirs error")),
 			fileName: "dirsFile",
 			wantErr:  true,
 		},
