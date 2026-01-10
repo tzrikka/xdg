@@ -114,25 +114,25 @@ func TestFullPath(t *testing.T) {
 	baseFile := "test_file"
 
 	tests := []struct {
-		name       string
-		subdir     string
-		fileSuffix string
+		name     string
+		subdir   string
+		dontFind bool
 	}{
 		{
 			name: "shallow_file_exists",
 		},
 		{
-			name:       "shallow_file_does_not_exist",
-			fileSuffix: "bad",
+			name:     "shallow_file_does_not_exist",
+			dontFind: true,
 		},
 		{
 			name:   "deep_file_exists",
 			subdir: "subdir1/subdir2",
 		},
 		{
-			name:       "deep_file_does_not_exist",
-			subdir:     "subdir",
-			fileSuffix: "bad",
+			name:     "deep_file_does_not_exist",
+			subdir:   "subdir",
+			dontFind: true,
 		},
 	}
 
@@ -150,13 +150,17 @@ func TestFullPath(t *testing.T) {
 				t.Fatalf("failed to write test file: %v", err)
 			}
 
-			got, err := fullPath(tempDir, appName, filepath.Join(tt.subdir, baseFile+tt.fileSuffix))
+			filename := baseFile
+			if tt.dontFind {
+				filename += "_not_found"
+			}
+			got, err := fullPath(tempDir, appName, filepath.Join(tt.subdir, filename))
 			if err != nil {
 				t.Errorf("fullPath() error = %v", err)
 				return
 			}
 
-			if tt.fileSuffix != "" {
+			if tt.dontFind {
 				path = ""
 			}
 			if got != path {
