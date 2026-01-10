@@ -1,7 +1,7 @@
 package xdg
 
 import (
-	"fmt"
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -25,10 +25,10 @@ const (
 func CreateDir(dirType func() (string, error), appName string) (string, error) {
 	appName = filepath.Clean(appName)
 	if appName == "." {
-		return "", fmt.Errorf("app name is empty")
+		return "", errors.New("app name is empty")
 	}
 	if strings.Contains(appName, pathSep) {
-		return "", fmt.Errorf("app name must not contain separator")
+		return "", errors.New("app name must not contain separator")
 	}
 
 	path, err := dirType()
@@ -84,10 +84,10 @@ func CreateSubdir(dirType func() (string, error), appName, subpath string) (stri
 func CreateFile(dirType func() (string, error), appName, fileName string) (string, error) {
 	fileName = filepath.Clean(fileName)
 	if fileName == "." {
-		return "", fmt.Errorf("file name is empty")
+		return "", errors.New("file name is empty")
 	}
 	if strings.Contains(fileName, pathSep) {
-		return "", fmt.Errorf("file name must not contain separator")
+		return "", errors.New("file name must not contain separator")
 	}
 
 	path, err := CreateDir(dirType, appName)
@@ -115,12 +115,12 @@ func CreateFile(dirType func() (string, error), appName, fileName string) (strin
 // 0 or more path elements. This function ensures that it does not escape the app's directory.
 func CreateFilePath(dirType func() (string, error), appName, filePath string) (string, error) {
 	if _, file := filepath.Split(filePath); file == "" {
-		return "", fmt.Errorf("file path must end with a file name")
+		return "", errors.New("file path must end with a file name")
 	}
 
 	filePath = filepath.Clean(filePath)
 	if filePath == "." {
-		return "", fmt.Errorf("file path is empty")
+		return "", errors.New("file path is empty")
 	}
 
 	subpath, file := filepath.Split(filePath)
