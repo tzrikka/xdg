@@ -5,6 +5,7 @@ import (
 )
 
 func TestHomeDir(t *testing.T) {
+	cachedHomeDir = ""
 	t.Cleanup(func() { cachedHomeDir = "" })
 	want := "TEST1"
 

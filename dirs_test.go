@@ -9,6 +9,9 @@ import (
 )
 
 func TestConfigHome(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+
 	tests := []struct {
 		name    string
 		env     string
@@ -47,6 +50,9 @@ func TestConfigHome(t *testing.T) {
 }
 
 func TestConfigDirs(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+
 	dir := t.TempDir()
 	if err := os.Mkdir(filepath.Join(dir, "dir"), 0o700); err != nil {
 		t.Fatal(err)
