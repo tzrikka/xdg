@@ -91,9 +91,6 @@ func TestConfigDirs(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ConfigDirs() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if len(got) != len(tt.want) {
-				t.Errorf("ConfigDirs() = %v, want %v", got, tt.want)
-			}
 			if !slices.Equal(got, tt.want) {
 				t.Errorf("ConfigDirs() = %q, want %q", got, tt.want)
 			}
