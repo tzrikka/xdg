@@ -8,6 +8,20 @@ import (
 	"testing"
 )
 
+func TestCacheHome(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+	t.Setenv("XDG_CACHE_HOME", "")
+
+	got, err := CacheHome()
+	if err != nil {
+		t.Errorf("CacheHome() error = %v", err)
+	}
+	if got != defaultCacheHome() {
+		t.Errorf("CacheHome() = %q, want %q", got, defaultCacheHome())
+	}
+}
+
 func TestConfigHome(t *testing.T) {
 	cachedHomeDir = ""
 	t.Cleanup(func() { cachedHomeDir = "" })
@@ -54,7 +68,7 @@ func TestConfigDirs(t *testing.T) {
 	t.Cleanup(func() { cachedHomeDir = "" })
 
 	dir := t.TempDir()
-	if err := os.Mkdir(filepath.Join(dir, "dir"), 0o700); err != nil {
+	if err := os.Mkdir(filepath.Join(dir, "dir"), NewDirectoryPermissions); err != nil {
 		t.Fatal(err)
 	}
 
@@ -98,9 +112,59 @@ func TestConfigDirs(t *testing.T) {
 	}
 }
 
+func TestDataHome(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+	t.Setenv("XDG_DATA_HOME", "")
+
+	got, err := DataHome()
+	if err != nil {
+		t.Errorf("DataHome() error = %v", err)
+	}
+	if got != defaultDataHome() {
+		t.Errorf("DataHome() = %q, want %q", got, defaultDataHome())
+	}
+}
+
+func TestDataDirs(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+
+	dir := t.TempDir()
+	if err := os.Mkdir(filepath.Join(dir, "dir"), NewDirectoryPermissions); err != nil {
+		t.Fatal(err)
+	}
+
+	dirs := strings.Join([]string{"/abs/path1", "/abs/path2", filepath.Join(dir, "dir")}, listSeparator)
+	t.Setenv("XDG_DATA_DIRS", dirs)
+	want := []string{filepath.Join(dir, "dir")}
+
+	got, err := DataDirs()
+	if err != nil {
+		t.Errorf("DataDirs() error = %v", err)
+	}
+	if !slices.Equal(got, want) {
+		t.Errorf("DataDirs() = %q, want %q", got, want)
+	}
+}
+
+func TestStateHome(t *testing.T) {
+	cachedHomeDir = ""
+	t.Cleanup(func() { cachedHomeDir = "" })
+	t.Setenv("XDG_STATE_HOME", "")
+
+	got, err := StateHome()
+	if err != nil {
+		t.Errorf("StateHome() error = %v", err)
+	}
+	if got != defaultStateHome() {
+		t.Errorf("StateHome() = %q, want %q", got, defaultStateHome())
+	}
+}
+
 func TestAbsDirExists(t *testing.T) {
 	root := t.TempDir()
-	if err := os.Mkdir(filepath.Join(root, "dir1"), 0o700); err != nil {
+	if err := os.Mkdir(filepath.Join(root, "dir1"), NewDirectoryPermissions); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.WriteFile(filepath.Join(root, "file1"), nil, NewFilePermissions); err != nil {
